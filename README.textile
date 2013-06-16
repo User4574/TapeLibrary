@@ -1,0 +1,5 @@
+h1. TapeLibrary
+
+h2. A Ruby Tape Library DSL
+
+Wanted to play with Docile. Had nothing better to do.
