@@ -35,8 +35,8 @@ class RobotBuilder
 		@name = name
 		@libraries = Hash.new
 	end
-	def uselibrary name, library
-		@libraries[name] = library
+	def uselibrary library
+		@libraries[library.name] = library
 	end
 	def build
 		Robot.new @name, @libraries
@@ -45,4 +45,22 @@ end
 
 def robot name, &block
 	Docile.dsl_eval(RobotBuilder.new(name), &block).build
+end
+
+Backup = Struct.new(:name, :robot, :backups)
+
+class BackupBuilder
+	def initialize name, robot
+		@name = name
+		@robot = robot
+	end
+	def backup bkp = {}
+		bkp.each do |dir, lib|
+			puts "Backup #{@name}: Backing up #{dir} to library #{lib} on robot #{@robot.name}"
+		end
+	end
+end
+
+def backups name, robot, &block
+	Docile.dsl_eval(BackupBuilder.new(name, robot), &block)
 end

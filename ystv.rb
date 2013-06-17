@@ -24,7 +24,14 @@ urylib = library "ury" do
 	tape "ury010", :slot => 20
 end
 
-tapebackup = robot "tapebackup" do
-	uselibrary "ystv", ystvlib
-	uselibrary "ury", urylib
+wallyrobot = robot "wally" do
+	uselibrary ystvlib
+	uselibrary urylib
+end
+
+backups "backuptotape", wallyrobot do
+	backup(
+		"/data/backups/" => "ystv",
+		"/mnt/urybackup/" => "ury"
+	)
 end
